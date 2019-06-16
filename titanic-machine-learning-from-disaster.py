@@ -1,5 +1,4 @@
 # https://www.kaggle.com/francksylla/titanic-machine-learning-from-disaster/
-# https://www.kaggle.com/francksylla/titanic-machine-learning-from-disaster/code
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesRegressor

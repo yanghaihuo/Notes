@@ -1,0 +1,85 @@
+'''
+Orders['cover'] = Orders['cover'].apply(lambda x: x.split('_')[1] if x.split('_')[0] > x.split('_')[1] else x.split('_')[0])
+table['day'] = Orders['Time'].apply(lambda x: str(x).split(' ')[0][5:])
+
+
+缺失值： None  np.nan  NA
+
+#若是通过一个字典调用fillna，就可以实现对不同的列填充不同的值：
+df.fillna({1:1,2:2})
+
+'''
+
+from datetime import datetime, timedelta
+import time
+
+# now = datetime.now()
+# nextDay = now + timedelta(days = 1)#增加一天后的时间
+# nextSecond = now + timedelta(seconds = 1)#增加一秒后的时间
+# span  = now - nextDay#获取时间差对象
+# # timedelta.total_seconds()方法：返回该时间差 以秒为单位的值
+# print(span.total_seconds())#获取时间差 以秒为单位
+
+print(datetime.now().strftime('%Y %m %d %H:%M:%S'))
+print(time.localtime(time.time()))
+print(datetime.fromtimestamp(time.time()))
+
+# datetime.timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
+print(timedelta(0, 3600))
+
+now = datetime.now()
+ddelay = timedelta(days=1)
+wdelay = timedelta(weeks=5)
+ydelay = timedelta(weeks=56)
+
+print(now)
+print(now - ddelay)  # 一天前的时间
+print(now - wdelay)  # 5 周前
+print(now + ydelay)  # 一年后
+
+starttime = datetime.now()
+time.sleep(5)
+endtime = datetime.now()
+print((endtime - starttime).seconds)
+print((endtime - starttime).days)
+
+# 1.   resample按时间聚合
+# W星期,M月,Q季度,QS季度的开始第一天开始,A年,10A十年,10AS十年聚合日期第一天开始 H T S
+# 对去重后的数据按照天进行重新采样
+# 首先要把索引变成时间
+# df.index = pd.DatetimeIndex(df['createTime'])
+# 然后对其按照每天从新采样
+# df.D = df.content.resample('D').count()
+# df.D.plot(color='r',marker='D')
+# plt.title('每天评论数据')
+# plt.savefig('每天评论数据.png', dpi=600)
+# plt.show()
+# df.H = df.content.resample('H').count()
+# df.H.plot(color='g',marker='D',xticks=df.H.index)
+# plt.title('每小时评论数据')
+# plt.savefig('每小时评论数据.png', dpi=600)
+# plt.show()
+# df.v = df.content.resample('T').count()
+# df.v.plot(color='b',marker='D',xticks=df.v.index)
+# plt.show()
+
+# for x, y in zip(np.arange(len(df1.index)),df1.values):
+#     plt.text(x, y, '%.0f' % y, ha='center', va='bottom')
+
+# 2.   resample按时间聚合
+# df.date = pd.to_datetime(df.date,format="%Y%m%d")
+# df.set_index('date',drop=True)
+
+# 常用日期处理方法
+# dates = pd.to_datetime(pd.Series(['1989-8-18 13:14:55','1995-2-16']), format = '%Y-%m-%d %H:%M:%S')
+# print('返回日期值：\n',dates.dt.date)
+# print('返回季度：\n',dates.dt.quarter)
+# print('返回几点钟：\n',dates.dt.hour)
+# print('返回年中的天：\n',dates.dt.dayofyear)
+# print('返回年中的周：\n',dates.dt.weekofyear)
+# print('返回星期几的名称：\n',dates.dt.weekday_name)
+# print('返回月份的天数：\n',dates.dt.days_in_month)
+# datas['dates'] = pd.to_datetime(datas['date']).dt.date
+# datas['time'] = pd.to_datetime(datas['date']).dt.hour
+# datas['dates'] = pd.to_datetime(datas['date'],format='%Y年%m月')
+# datas['dates'] = pd.to_datetime(datas['date'],format=''%Y-%m-%d %H:%M:%S'')
